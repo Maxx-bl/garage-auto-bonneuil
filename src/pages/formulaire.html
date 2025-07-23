@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <title>Estimation de Voiture</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeInSlide 0.4s ease forwards;
+        }
+
+        @keyframes fadeInSlide {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-style {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            background-color: #2a2a2e;
+            border: 1px solid #4b5563;
+            border-radius: 0.375rem;
+            color: white;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-style:focus {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.5);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-[var(--color-bg)] text-white flex flex-col">
+
+    <header class="border-b py-7 px-4 flex justify-between items-center border-[#dc2626]">
+        <nav class="flex gap-6 text-sm">
+            <a href="../../index.html"
+                class="transition duration-200 text-base opacity-80 hover:opacity-100">Accueil</a>
+            <a href="#"
+                class="text-primary font-bold underline text-base opacity-80 hover:opacity-100 transition">Vendre Votre
+                Voiture</a>
+            <a href="../pages/a-propos.html" class="transition duration-200 text-base opacity-80 hover:opacity-100">À
+                Propos</a>
+        </nav>
+    </header>
+
+    <main class="flex-1 flex items-center justify-center px-4 py-16">
+        <div class="bg-[#1f1f22] border border-[var(--color-primary)] rounded-lg shadow-lg max-w-2xl w-full p-8">
+            <h1 class="text-2xl sm:text-3xl font-bold text-center mb-8">Estimez le Prix de Votre Voiture</h1>
+            <form id="form-estimation" class="space-y-6">
+
+                <!-- Marque -->
+                <div class="form-step fade-in">
+                    <label for="marque" class="block text-sm font-medium mb-1">Quelle est la marque de votre voiture
+                        ?</label>
+                    <select id="marque" name="marque" required class="input-style">
+                        <option value="">Sélectionner</option>
+                        <option>Peugeot</option>
+                        <option>Renault</option>
+                        <option>Citroën</option>
+                        <option>DS</option>
+                        <option>Alpine</option>
+                        <option>Bugatti</option>
+                        <option>Dacia</option>
+                        <option>Aixam</option>
+                        <option>Opel</option>
+                        <option>Fiat</option>
+                        <option>Ford</option>
+                        <option>Volkswagen</option>
+                        <option>Seat</option>
+                        <option>Škoda</option>
+                        <option>Audi</option>
+                        <option>Bentley</option>
+                        <option>Porsche</option>
+                        <option>Lamborghini</option>
+                        <option>BMW</option>
+                        <option>Mini</option>
+                        <option>Mercedes</option>
+                        <option>Smart</option>
+                        <option>Toyota</option>
+                        <option>Lexus</option>
+                        <option>Nissan</option>
+                        <option>Hyundai</option>
+                        <option>Kia</option>
+                        <option>Tesla</option>
+                        <option>Volvo</option>
+                        <option>Mazda</option>
+                        <option>Jeep</option>
+                        <option>Land Rover</option>
+                        <option>Alfa Romeo</option>
+                        <option>Maserati</option>
+                        <option>Jaguar</option>
+                        <option>Autre</option>
+                    </select>
+                </div>
+
+                <!-- Modèle (liste déroulante) -->
+                <div class="form-step hidden" id="modele-step">
+                    <label for="modele" class="block text-sm font-medium mb-1">Quel est le modèle ?</label>
+                    <select id="modele" name="modele" class="input-style"></select>
+                </div>
+
+                <!-- Modèle manuel -->
+                <div class="form-step hidden" id="modele-autre-step">
+                    <label for="modele-autre" class="block text-sm font-medium mb-1">Quel est le modèle ?</label>
+                    <input type="text" id="modele-autre" name="modele_autre" class="input-style"
+                        placeholder="Entrez le modèle" />
+                </div>
+
+                <!-- Année -->
+                <div class="form-step hidden">
+                    <label for="annee" class="block text-sm font-medium mb-1">Quelle est l’année de mise en circulation
+                        ?</label>
+                    <select id="annee" name="annee" required class="input-style">
+                        <option value="">Sélectionner</option>
+                    </select>
+                </div>
+
+                <div class="form-step hidden">
+                    <label for="carburant" class="block text-sm font-medium mb-1">À quel carburant fonctionne-t-elle
+                        ?</label>
+                    <select id="carburant" name="carburant" class="input-style">
+                        <option value="">Sélectionner</option>
+                        <option>Essence</option>
+                        <option>Diesel</option>
+                        <option>Hybride</option>
+                        <option>Électrique</option>
+                        <option>GPL</option>
+                        <option>Autre</option>
+                    </select>
+                </div>
+
+                <div class="form-step hidden">
+                    <label for="transmission" class="block text-sm font-medium mb-1">De quel type de boîte de vitesses
+                        est-elle équipée ?</label>
+                    <select id="transmission" name="transmission" class="input-style">
+                        <option value="">Sélectionner</option>
+                        <option>Manuelle</option>
+                        <option>Automatique</option>
+                        <option>Robotisée</option>
+                    </select>
+                </div>
+
+                <div class="form-step hidden">
+                    <label for="kilometrage" class="block text-sm font-medium mb-1">Combien de kilomètres a-t-elle
+                        ?</label>
+                    <input type="number" id="kilometrage" name="kilometrage" placeholder="Ex : 85000"
+                        class="input-style" required />
+                </div>
+
+                <div class="form-step hidden">
+                    <label for="portes" class="block text-sm font-medium mb-1">Combien de portières a-t-elle ?</label>
+                    <select id="portes" name="portes" class="input-style">
+                        <option value="">Sélectionner</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+
+                <div class="form-step hidden">
+                    <label for="delai" class="block text-sm font-medium mb-1">Quand souhaitez-vous la vendre ?</label>
+                    <select id="delai" name="delai" class="input-style">
+                        <option value="">Sélectionner</option>
+                        <option>Le plus vite possible</option>
+                        <option>3 semaines</option>
+                        <option>3 mois</option>
+                        <option>Pas de préférence</option>
+                    </select>
+                </div>
+
+                <div class="form-step hidden">
+                    <label for="acheteur" class="block text-sm font-medium mb-1">À qui préférez-vous la vendre ?</label>
+                    <select id="acheteur" name="acheteur" class="input-style">
+                        <option value="">Sélectionner</option>
+                        <option>Concessionnaire</option>
+                        <option>Particulier</option>
+                        <option>Pas de préférence</option>
+                    </select>
+                </div>
+
+                <div class="form-step hidden">
+                    <label for="email" class="block text-sm font-medium mb-1">À quelle adresse e-mail pouvons-nous vous
+                        contacter ?</label>
+                    <input type="email" id="email" name="email" class="input-style" required />
+                </div>
+
+                <div class="text-center pt-6 hidden" id="submit-wrapper">
+                    <button type="submit"
+                        class="bg-primary text-white px-6 py-2 rounded font-semibold hover:-translate-y-1 hover:shadow-md transition">
+                        Obtenir une Estimation
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <!-- Script -->
+    <script>
+        const steps = document.querySelectorAll(".form-step");
+        const submitWrapper = document.getElementById("submit-wrapper");
+
+        function goToNextStep(currentElement) {
+            const currentIndex = Array.from(steps).findIndex(step => step.contains(currentElement));
+            const next = steps[currentIndex + 1];
+            if (next) {
+                next.classList.remove("hidden");
+                next.classList.add("fade-in");
+            } else {
+                submitWrapper.classList.remove("hidden");
+                submitWrapper.classList.add("fade-in");
+            }
+        }
+
+        steps.forEach(step => {
+            const input = step.querySelector("input, select");
+            if (!input) return;
+
+            if (input.id === "modele" || input.id === "modele-autre") return;
+
+            input.addEventListener("change", () => {
+                if (input.value.trim() !== "") {
+                    goToNextStep(input);
+                }
+            });
+        });
+
+        // Données des modèles
+        const modelesParMarque = {
+            Peugeot: ["208", "2008", "308", "3008", "5008", "408", "508", "Partner", "Autre"],
+            Renault: ["Clio", "Mégane", "Scénic", "Captur", "Kadjar", "Talisman", "Koleos", "Autre"],
+            Citroën: ["C1", "C3", "C3 Aircross", "C4", "C5 Aircross", "Berlingo", "Spacetourer", "Autre"],
+            DS: ["DS 3", "DS 4", "DS 7", "DS 9", "Autre"],
+            Alpine: ["A110", "A310", "Autre"],
+            Dacia: ["Sandero", "Logan", "Duster", "Jogger", "Spring", "Autre"],
+            Opel: ["Corsa", "Astra", "Crossland", "Grandland", "Autre"],
+            Fiat: ["500", "Panda", "Tipo", "500X", "Punto", "500L", "Autre"],
+            Ford: ["Fiesta", "Focus", "Puma", "Kuga", "Explorer", "Autre"],
+            Volkswagen: ["Polo", "Golf", "T-Roc", "Tiguan", "Passat", "Touran", "Autre"],
+            Audi: ["A1", "A3", "A4", "A6", "Q2", "Q3", "Q5", "Q7", "Autre"],
+            BMW: ["Série 1", "Série 3", "Série 5", "X1", "X3", "X5", "Autre"],
+            Mercedes: ["Classe A", "Classe B", "Classe C", "Classe E", "GLA", "GLC", "Autre"],
+            Toyota: ["Yaris", "Corolla", "C-HR", "RAV4", "Prius", "Autre"],
+            Nissan: ["Micra", "Juke", "Qashqai", "Leaf", "Autre"],
+            Hyundai: ["i10", "i20", "i30", "Tucson", "Kona", "Autre"],
+            Kia: ["Picanto", "Rio", "Ceed", "Sportage", "Niro", "Autre"],
+            Volvo: ["V40", "V60", "XC40", "XC60", "XC90", "Autre"],
+            Tesla: ["Model 3", "Model S", "Model X", "Model Y", "Autre"]
+        };
+
+        const marqueSelect = document.getElementById("marque");
+        const modeleSelect = document.getElementById("modele");
+        const modeleStep = document.getElementById("modele-step");
+        const modeleAutreStep = document.getElementById("modele-autre-step");
+        const modeleAutreInput = document.getElementById("modele-autre");
+
+        marqueSelect.addEventListener("change", () => {
+            const marque = marqueSelect.value;
+            modeleSelect.innerHTML = "<option value=''>Sélectionner</option>";
+
+            modeleAutreStep.classList.add("hidden");
+
+            if (modelesParMarque[marque]) {
+                modelesParMarque[marque].forEach(modele => {
+                    const option = document.createElement("option");
+                    option.value = modele;
+                    option.textContent = modele;
+                    modeleSelect.appendChild(option);
+                });
+                modeleStep.classList.remove("hidden");
+                modeleStep.classList.add("fade-in");
+                modeleAutreStep.classList.add("hidden");
+            } else {
+                modeleStep.classList.add("hidden");
+                modeleAutreStep.classList.remove("hidden");
+                modeleAutreStep.classList.add("fade-in");
+            }
+        });
+
+        modeleSelect.addEventListener("change", () => {
+            const value = modeleSelect.value.trim();
+            const marque = marqueSelect.value.trim();
+
+            if (value === "Autre") {
+                modeleAutreStep.classList.remove("hidden");
+                modeleAutreStep.classList.add("fade-in");
+
+            } else if (value !== "") {
+                if (!modeleAutreStep.classList.contains("hidden")) {
+                    modeleAutreStep.classList.add("hidden");
+                }
+
+                goToNextStep(modeleSelect);
+            }
+        });
+
+
+        modeleAutreInput.addEventListener("change", () => {
+            const value = modeleAutreInput.value.trim();
+            if (value !== "") {
+                goToNextStep(modeleAutreInput);
+            }
+        });
+
+        // Génère les années de 2025 à 1970
+        const anneeSelect = document.getElementById("annee");
+        const currentYear = new Date().getFullYear();
+        for (let y = currentYear; y >= 1970; y--) {
+            const option = document.createElement("option");
+            option.value = y;
+            option.textContent = y;
+            anneeSelect.appendChild(option);
+        }
+    </script>
+
+
+</body>
+
+</html>
