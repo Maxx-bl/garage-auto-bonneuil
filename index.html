@@ -6,8 +6,35 @@
     <link rel="stylesheet" href="./src/style.css" />
     <title>Vite App</title>
   </head>
-  <body>
-    <h1 class="text-6xl text-amber-600">hello world</h1>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="border-b py-2 px-4 flex justify-between items-center border-[#dc2626]">
+  <nav class="flex gap-6 text-sm">
+    <a href="#" class="text-primary font-bold underline">Accueil</a>
+    <a href="#" class="hover:text-primary transition">Vendre Votre Voiture</a>
+    <a href="#" class="hover:text-primary transition">À Propos</a>
+  </nav>
+</header>
+
+
+  <!-- Main -->
+  <main class="flex-grow flex flex-col items-center justify-center text-center px-4">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+      Notre histoire sera la <span class="text-primary">votre</span>
+    </h1>
+    <p class="max-w-xl text-sm sm:text-base text-gray-300 mb-6">
+      Découvrez des offres imbattables sur une vaste sélection de véhicules de qualité.
+      Achetez, vendez ou obtenez un devis en toute simplicité et confiance.
+    </p>
+    <div class="flex gap-4 flex-wrap justify-center">
+      <a href="#" class="bg-primary text-white px-5 py-2 rounded font-semibold hover:opacity-90 transition">
+        Parcourir les Véhicules
+      </a>
+      <a href="#" class="bg-white text-primary px-5 py-2 rounded font-semibold border border-primary hover:bg-primary hover:text-white transition">
+        Vendre Votre Voiture
+      </a>
+    </div>
+  </main>
+</body>
 </html>
