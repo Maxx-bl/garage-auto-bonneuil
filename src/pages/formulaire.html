@@ -194,6 +194,12 @@
                     <input type="email" id="email" name="email" class="input-style" required />
                 </div>
 
+                <div class="form-step hidden">
+                    <label for="info" class="block text-sm font-medium mb-1">Souhaitez-vous nous faire part
+                        d'informations complémentaires ?</label>
+                    <input type="email" id="email" name="email" class="input-style" required />
+                </div>
+
                 <div class="text-center pt-6 hidden" id="submit-wrapper">
                     <button type="submit"
                         class="bg-primary text-white px-6 py-2 rounded font-semibold hover:-translate-y-1 hover:shadow-md transition">
@@ -208,93 +214,114 @@
     <!-- Script -->
     <script>
         const steps = document.querySelectorAll(".form-step");
-    const submitWrapper = document.getElementById("submit-wrapper");
+        const submitWrapper = document.getElementById("submit-wrapper");
 
-    function goToNextStep(currentElement) {
-        const currentIndex = Array.from(steps).findIndex(step => step.contains(currentElement));
-        const next = steps[currentIndex + 1];
-        if (next) {
-            next.classList.remove("hidden");
-            next.classList.add("fade-in");
-        } else {
-            submitWrapper.classList.remove("hidden");
-            submitWrapper.classList.add("fade-in");
-        }
-    }
-
-    steps.forEach(step => {
-        const input = step.querySelector("input, select");
-        if (!input) return;
-
-        if (input.id === "modele") return;
-
-        input.addEventListener("change", () => {
-            if (input.value.trim() !== "") {
-                goToNextStep(input);
+        function goToNextStep(currentElement) {
+            const currentIndex = Array.from(steps).findIndex(step => step.contains(currentElement));
+            const next = steps[currentIndex + 1];
+            if (next) {
+                const isLastStep = currentIndex + 2 >= steps.length;
+                next.classList.remove("hidden");
+                next.classList.add("fade-in");
+                if (isLastStep) {
+                    submitWrapper.classList.remove("hidden");
+                    submitWrapper.classList.add("fade-in");
+                }
+            } else {
+                submitWrapper.classList.remove("hidden");
+                submitWrapper.classList.add("fade-in");
             }
+        }
+
+        steps.forEach(step => {
+            const input = step.querySelector("input, select");
+            if (!input) return;
+
+            if (input.id === "modele") return;
+
+            input.addEventListener("change", () => {
+                if (input.value.trim() !== "") {
+                    goToNextStep(input);
+                }
+            });
         });
-    });
 
         // Données des modèles
         const modelesParMarque = {
             Peugeot: ["208", "2008", "308", "3008", "5008", "408", "508", "Partner", "Autre"],
-            Renault: ["Clio", "Mégane", "Scénic", "Captur", "Kadjar", "Talisman", "Koleos", "Autre"],
-            Citroën: ["C1", "C3", "C3 Aircross", "C4", "C5 Aircross", "Berlingo", "Spacetourer", "Autre"],
+            Renault: ["Clio", "Mégane", "Scénic", "Captur", "Kadjar", "Talisman", "Koleos", "Austral", "Espace", "Twizy", "Autre"],
+            Citroën: ["C1", "C3", "C3 Aircross", "C4", "C5", "C5 Aircross", "Berlingo", "Spacetourer", "Ami", "Autre"],
             DS: ["DS 3", "DS 4", "DS 7", "DS 9", "Autre"],
-            Alpine: ["A110", "A310", "Autre"],
-            Dacia: ["Sandero", "Logan", "Duster", "Jogger", "Spring", "Autre"],
-            Opel: ["Corsa", "Astra", "Crossland", "Grandland", "Autre"],
-            Fiat: ["500", "Panda", "Tipo", "500X", "Punto", "500L", "Autre"],
-            Ford: ["Fiesta", "Focus", "Puma", "Kuga", "Explorer", "Autre"],
-            Volkswagen: ["Polo", "Golf", "T-Roc", "Tiguan", "Passat", "Touran", "Autre"],
-            Audi: ["A1", "A3", "A4", "A6", "Q2", "Q3", "Q5", "Q7", "Autre"],
-            BMW: ["Série 1", "Série 3", "Série 5", "X1", "X3", "X5", "Autre"],
-            Mercedes: ["Classe A", "Classe B", "Classe C", "Classe E", "GLA", "GLC", "Autre"],
-            Toyota: ["Yaris", "Corolla", "C-HR", "RAV4", "Prius", "Autre"],
-            Nissan: ["Micra", "Juke", "Qashqai", "Leaf", "Autre"],
-            Hyundai: ["i10", "i20", "i30", "Tucson", "Kona", "Autre"],
-            Kia: ["Picanto", "Rio", "Ceed", "Sportage", "Niro", "Autre"],
-            Volvo: ["V40", "V60", "XC40", "XC60", "XC90", "Autre"],
-            Tesla: ["Model 3", "Model S", "Model X", "Model Y", "Autre"]
+            Alpine: ["A110", "A310", "A610", "Autre"],
+            Bugatti: ["Chiron", "Veyron", "EB110", "Divo", "Autre"],
+            Dacia: ["Sandero", "Logan", "Duster", "Jogger", "Spring", "Dokker", "Lodgy", "Autre"],
+            Aixam: ["City", "Coupé", "Crossline", "Crossover", "Autre"],
+            Opel: ["Corsa", "Astra", "Crossland", "Grandland", "Mokka", "Insignia", "Zafira", "Autre"],
+            Fiat: ["500", "Panda", "Tipo", "500X", "Punto", "500L", "Doblo", "Fiorino", "Autre"],
+            Ford: ["Fiesta", "Focus", "Puma", "Kuga", "Explorer", "Mondeo", "S-Max", "Autre"],
+            Volkswagen: ["Polo", "Golf", "T-Roc", "Tiguan", "Passat", "Touran", "ID.3", "ID.4", "Autre"],
+            Seat: ["Ibiza", "Leon", "Arona", "Ateca", "Tarraco", "Mii", "Autre"],
+            "Škoda": ["Fabia", "Octavia", "Scala", "Kamiq", "Karoq", "Kodiaq", "Enyaq", "Autre"],
+            Audi: ["A1", "A3", "A4", "A6", "A8", "Q2", "Q3", "Q5", "Q7", "Q8", "e-tron", "Autre"],
+            Bentley: ["Continental", "Flying Spur", "Bentayga", "Mulsanne", "Autre"],
+            Porsche: ["911", "Cayenne", "Panamera", "Macan", "Taycan", "Autre"],
+            Lamborghini: ["Huracán", "Aventador", "Urus", "Gallardo", "Autre"],
+            BMW: ["Série 1", "Série 2", "Série 3", "Série 4", "Série 5", "Série 7", "X1", "X2", "X3", "X5", "X7", "i3", "i4", "Autre"],
+            Mini: ["One", "Cooper", "Clubman", "Countryman", "Autre"],
+            Mercedes: ["Classe A", "Classe B", "Classe C", "Classe E", "Classe S", "GLA", "GLB", "GLC", "GLE", "GLS", "EQB", "EQC", "EQA", "EQE", "Autre"],
+            Smart: ["Fortwo", "Forfour", "EQ Fortwo", "Autre"],
+            Toyota: ["Yaris", "Corolla", "C-HR", "RAV4", "Prius", "Aygo", "Land Cruiser", "Hilux", "Autre"],
+            Lexus: ["CT", "IS", "ES", "NX", "RX", "UX", "Autre"],
+            Nissan: ["Micra", "Juke", "Qashqai", "X-Trail", "Leaf", "Ariya", "Autre"],
+            Hyundai: ["i10", "i20", "i30", "Tucson", "Kona", "Santa Fe", "Ioniq", "Autre"],
+            Kia: ["Picanto", "Rio", "Ceed", "Sportage", "Niro", "EV6", "Sorento", "Autre"],
+            Tesla: ["Model 3", "Model S", "Model X", "Model Y", "Roadster", "Cybertruck", "Autre"],
+            Volvo: ["V40", "V60", "V90", "XC40", "XC60", "XC90", "S60", "S90", "Autre"],
+            Mazda: ["Mazda2", "Mazda3", "Mazda6", "CX-3", "CX-30", "CX-5", "MX-5", "Autre"],
+            Jeep: ["Renegade", "Compass", "Cherokee", "Grand Cherokee", "Wrangler", "Autre"],
+            "Land Rover": ["Range Rover", "Range Rover Evoque", "Range Rover Velar", "Discovery", "Defender", "Autre"],
+            "Alfa Romeo": ["Giulia", "Giulietta", "Stelvio", "Tonale", "Autre"],
+            Maserati: ["Ghibli", "Levante", "Quattroporte", "GranTurismo", "MC20", "Autre"],
+            Jaguar: ["XE", "XF", "F-Pace", "E-Pace", "I-Pace", "F-Type", "Autre"]
         };
 
+
         const marqueSelect = document.getElementById("marque");
-    const modeleSelect = document.getElementById("modele");
-    const modeleStep = document.getElementById("modele-step");
+        const modeleSelect = document.getElementById("modele");
+        const modeleStep = document.getElementById("modele-step");
 
-    marqueSelect.addEventListener("change", () => {
-        const marque = marqueSelect.value;
-        modeleSelect.innerHTML = "<option value=''>Sélectionner</option>";
+        marqueSelect.addEventListener("change", () => {
+            const marque = marqueSelect.value;
+            modeleSelect.innerHTML = "<option value=''>Sélectionner</option>";
 
-        if (modelesParMarque[marque]) {
-            modelesParMarque[marque].forEach(modele => {
-                const option = document.createElement("option");
-                option.value = modele;
-                option.textContent = modele;
-                modeleSelect.appendChild(option);
-            });
-            modeleStep.classList.remove("hidden");
-            modeleStep.classList.add("fade-in");
-        } else {
-            modeleStep.classList.add("hidden");
+            if (modelesParMarque[marque]) {
+                modelesParMarque[marque].forEach(modele => {
+                    const option = document.createElement("option");
+                    option.value = modele;
+                    option.textContent = modele;
+                    modeleSelect.appendChild(option);
+                });
+                modeleStep.classList.remove("hidden");
+                modeleStep.classList.add("fade-in");
+            } else {
+                modeleStep.classList.add("hidden");
+            }
+        });
+
+        modeleSelect.addEventListener("change", () => {
+            if (modeleSelect.value.trim() !== "") {
+                goToNextStep(modeleSelect);
+            }
+        });
+
+        const anneeSelect = document.getElementById("annee");
+        const currentYear = new Date().getFullYear();
+        for (let y = currentYear; y >= 1970; y--) {
+            const option = document.createElement("option");
+            option.value = y;
+            option.textContent = y;
+            anneeSelect.appendChild(option);
         }
-    });
-
-    modeleSelect.addEventListener("change", () => {
-        if (modeleSelect.value.trim() !== "") {
-            goToNextStep(modeleSelect);
-        }
-    });
-
-    // Génère les années de 2025 à 1970
-    const anneeSelect = document.getElementById("annee");
-    const currentYear = new Date().getFullYear();
-    for (let y = currentYear; y >= 1970; y--) {
-        const option = document.createElement("option");
-        option.value = y;
-        option.textContent = y;
-        anneeSelect.appendChild(option);
-    }
     </script>
 
 
