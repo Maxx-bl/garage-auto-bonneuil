@@ -109,17 +109,10 @@
                     </select>
                 </div>
 
-                <!-- Modèle (liste déroulante) -->
+                <!-- Modèle -->
                 <div class="form-step hidden" id="modele-step">
                     <label for="modele" class="block text-sm font-medium mb-1">Quel est le modèle ?</label>
                     <select id="modele" name="modele" class="input-style"></select>
-                </div>
-
-                <!-- Modèle manuel -->
-                <div class="form-step hidden" id="modele-autre-step">
-                    <label for="modele-autre" class="block text-sm font-medium mb-1">Quel est le modèle ?</label>
-                    <input type="text" id="modele-autre" name="modele_autre" class="input-style"
-                        placeholder="Entrez le modèle" />
                 </div>
 
                 <!-- Année -->
@@ -215,32 +208,32 @@
     <!-- Script -->
     <script>
         const steps = document.querySelectorAll(".form-step");
-        const submitWrapper = document.getElementById("submit-wrapper");
+    const submitWrapper = document.getElementById("submit-wrapper");
 
-        function goToNextStep(currentElement) {
-            const currentIndex = Array.from(steps).findIndex(step => step.contains(currentElement));
-            const next = steps[currentIndex + 1];
-            if (next) {
-                next.classList.remove("hidden");
-                next.classList.add("fade-in");
-            } else {
-                submitWrapper.classList.remove("hidden");
-                submitWrapper.classList.add("fade-in");
-            }
+    function goToNextStep(currentElement) {
+        const currentIndex = Array.from(steps).findIndex(step => step.contains(currentElement));
+        const next = steps[currentIndex + 1];
+        if (next) {
+            next.classList.remove("hidden");
+            next.classList.add("fade-in");
+        } else {
+            submitWrapper.classList.remove("hidden");
+            submitWrapper.classList.add("fade-in");
         }
+    }
 
-        steps.forEach(step => {
-            const input = step.querySelector("input, select");
-            if (!input) return;
+    steps.forEach(step => {
+        const input = step.querySelector("input, select");
+        if (!input) return;
 
-            if (input.id === "modele" || input.id === "modele-autre") return;
+        if (input.id === "modele") return;
 
-            input.addEventListener("change", () => {
-                if (input.value.trim() !== "") {
-                    goToNextStep(input);
-                }
-            });
+        input.addEventListener("change", () => {
+            if (input.value.trim() !== "") {
+                goToNextStep(input);
+            }
         });
+    });
 
         // Données des modèles
         const modelesParMarque = {
@@ -266,68 +259,42 @@
         };
 
         const marqueSelect = document.getElementById("marque");
-        const modeleSelect = document.getElementById("modele");
-        const modeleStep = document.getElementById("modele-step");
-        const modeleAutreStep = document.getElementById("modele-autre-step");
-        const modeleAutreInput = document.getElementById("modele-autre");
+    const modeleSelect = document.getElementById("modele");
+    const modeleStep = document.getElementById("modele-step");
 
-        marqueSelect.addEventListener("change", () => {
-            const marque = marqueSelect.value;
-            modeleSelect.innerHTML = "<option value=''>Sélectionner</option>";
+    marqueSelect.addEventListener("change", () => {
+        const marque = marqueSelect.value;
+        modeleSelect.innerHTML = "<option value=''>Sélectionner</option>";
 
-            modeleAutreStep.classList.add("hidden");
-
-            if (modelesParMarque[marque]) {
-                modelesParMarque[marque].forEach(modele => {
-                    const option = document.createElement("option");
-                    option.value = modele;
-                    option.textContent = modele;
-                    modeleSelect.appendChild(option);
-                });
-                modeleStep.classList.remove("hidden");
-                modeleStep.classList.add("fade-in");
-                modeleAutreStep.classList.add("hidden");
-            } else {
-                modeleStep.classList.add("hidden");
-                modeleAutreStep.classList.remove("hidden");
-                modeleAutreStep.classList.add("fade-in");
-            }
-        });
-
-        modeleSelect.addEventListener("change", () => {
-            const value = modeleSelect.value.trim();
-            const marque = marqueSelect.value.trim();
-
-            if (value === "Autre") {
-                modeleAutreStep.classList.remove("hidden");
-                modeleAutreStep.classList.add("fade-in");
-
-            } else if (value !== "") {
-                if (!modeleAutreStep.classList.contains("hidden")) {
-                    modeleAutreStep.classList.add("hidden");
-                }
-
-                goToNextStep(modeleSelect);
-            }
-        });
-
-
-        modeleAutreInput.addEventListener("change", () => {
-            const value = modeleAutreInput.value.trim();
-            if (value !== "") {
-                goToNextStep(modeleAutreInput);
-            }
-        });
-
-        // Génère les années de 2025 à 1970
-        const anneeSelect = document.getElementById("annee");
-        const currentYear = new Date().getFullYear();
-        for (let y = currentYear; y >= 1970; y--) {
-            const option = document.createElement("option");
-            option.value = y;
-            option.textContent = y;
-            anneeSelect.appendChild(option);
+        if (modelesParMarque[marque]) {
+            modelesParMarque[marque].forEach(modele => {
+                const option = document.createElement("option");
+                option.value = modele;
+                option.textContent = modele;
+                modeleSelect.appendChild(option);
+            });
+            modeleStep.classList.remove("hidden");
+            modeleStep.classList.add("fade-in");
+        } else {
+            modeleStep.classList.add("hidden");
         }
+    });
+
+    modeleSelect.addEventListener("change", () => {
+        if (modeleSelect.value.trim() !== "") {
+            goToNextStep(modeleSelect);
+        }
+    });
+
+    // Génère les années de 2025 à 1970
+    const anneeSelect = document.getElementById("annee");
+    const currentYear = new Date().getFullYear();
+    for (let y = currentYear; y >= 1970; y--) {
+        const option = document.createElement("option");
+        option.value = y;
+        option.textContent = y;
+        anneeSelect.appendChild(option);
+    }
     </script>
 
 
