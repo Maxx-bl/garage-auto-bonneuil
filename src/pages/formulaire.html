@@ -62,7 +62,7 @@
     <main class="flex-1 flex items-center justify-center px-4 py-16">
         <div class="bg-[#1f1f22] border border-[var(--color-primary)] rounded-lg shadow-lg max-w-2xl w-full p-8">
             <h1 class="text-2xl sm:text-3xl font-bold text-center mb-8">Estimez le Prix de Votre Voiture</h1>
-            <form id="form-estimation" class="space-y-6">
+            <form action="https://formspree.io/f/mkgzjlyl" method="post" id="form-estimation" class="space-y-6">
 
                 <!-- Marque -->
                 <div class="form-step fade-in">
@@ -195,9 +195,25 @@
                 </div>
 
                 <div class="form-step hidden">
+                    <label for="email" class="block text-sm font-medium mb-1">À quel numéro de téléphone pouvons-nous vous
+                        contacter ?</label>
+                    <input type="tel" id="tel" name="tel" class="input-style" required />
+                </div>
+
+                <div class="form-step hidden">
+                    <label for="email" class="block text-sm font-medium mb-1">Quel est votre nom ?</label>
+                    <input type="text" id="nom" name="nom" class="input-style" required />
+                </div>
+
+                <div class="form-step hidden">
+                    <label for="email" class="block text-sm font-medium mb-1">Quel est votre prénom ?</label>
+                    <input type="text" id="prenom" name="prenom" class="input-style" required />
+                </div>
+
+                <div class="form-step hidden">
                     <label for="info" class="block text-sm font-medium mb-1">Souhaitez-vous nous faire part
                         d'informations complémentaires ?</label>
-                    <input type="email" id="email" name="email" class="input-style" required />
+                    <input type="text" id="informations" name="informations" class="input-style" required />
                 </div>
 
                 <div class="text-center pt-6 hidden" id="submit-wrapper">
@@ -231,6 +247,7 @@
                 submitWrapper.classList.remove("hidden");
                 submitWrapper.classList.add("fade-in");
             }
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
         steps.forEach(step => {
@@ -239,7 +256,9 @@
 
             if (input.id === "modele") return;
 
-            input.addEventListener("change", () => {
+            const eventType = input.tagName === "INPUT" ? "input" : "change";
+
+            input.addEventListener(eventType, () => {
                 if (input.value.trim() !== "") {
                     goToNextStep(input);
                 }
